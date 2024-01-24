@@ -1,5 +1,5 @@
 # TheNextBigAPI
-
+NOTE: the Docker version is not working at this time. Run HTTP project instead.  
 ## What is it?
 Have you ever wondered what it would be like to have a currency rate API that has currency data just up to 2014? Well, wonder no more, because it is here!
 
