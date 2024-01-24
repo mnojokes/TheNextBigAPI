@@ -21,22 +21,23 @@ public class CurrencyRateService
 
     public async Task<RateChangesResponse> GetRateChanges(DateTime date)
     {
-        CurrencyDataEntity? current = null;// await _rateRepository.Get(date);
+        CurrencyDataEntity? current = await _rateRepository.Get(date);
         if (current is null)
         {
             current = await DownloadRates(date);
-            //await _rateRepository.Store(current);
+            await _rateRepository.Store(current);
         }
 
-        CurrencyDataEntity? previous = null; // await _rateRepository.Get(date);
+        DateTime previousDay = date.AddDays(-1);
+        CurrencyDataEntity? previous = await _rateRepository.Get(previousDay);
         if (previous is null)
         {
-            previous = await DownloadRates(date.AddDays(-1));
-            //await _rateRepository.Store(previous);
+            previous = await DownloadRates(previousDay);
+            await _rateRepository.Store(previous);
         }
 
-        ExchangeRates? curRates = XmlUtility.Deserialize<ExchangeRates>(current.RatesXml);
-        ExchangeRates? prevRates = XmlUtility.Deserialize<ExchangeRates>(previous.RatesXml);
+        ExchangeRates? curRates = XmlUtility.Deserialize<ExchangeRates>(current.Rates);
+        ExchangeRates? prevRates = XmlUtility.Deserialize<ExchangeRates>(previous.Rates);
 
         if (curRates is null || prevRates is null)
         {
@@ -55,7 +56,7 @@ public class CurrencyRateService
         return new CurrencyDataEntity()
         {
             Date = date,
-            RatesXml = await _client.Get(date)
+            Rates = await _client.Get(date)
         };
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using Dapper;
+using System.Data;
 using TheNextBigThing.Domain.Entities;
 using TheNextBigThing.Domain.Interfaces;
 
@@ -15,16 +16,35 @@ public class CurrencyRateRepository : ICurrencyRateRepository
 
     public async Task<CurrencyDataEntity?> Get(DateTime date)
     {
-        throw new NotImplementedException();
+        string sql = "SELECT * FROM \"exchange_rates\" WHERE \"date\" = @date;";
+        var queryParameters = new
+        {
+            date = new DateTime(date.Year, date.Month, date.Day),
+        };
+
+        return await _connection.QuerySingleOrDefaultAsync<CurrencyDataEntity>(sql, queryParameters);
     }
 
     public async Task Store(CurrencyDataEntity data)
     {
-        throw new NotImplementedException();
+        string sql = "INSERT INTO \"exchange_rates\" (\"date\", \"rates\") VALUES (@date, @rates);";
+        var queryParameters = new
+        {
+            date = new DateTime(data.Date.Year, data.Date.Month, data.Date.Day),
+            rates = data.Rates
+        };
+
+        int linesAdded = await _connection.ExecuteAsync(sql, queryParameters);
+        if (linesAdded != 1)
+        {
+            // Log error, do not break
+            await Console.Out.WriteLineAsync("Error writing to cache DB");
+        }
     }
 
-    public Task CleanUp()
+    public async Task CleanUp()
     {
-        throw new NotImplementedException();
+        string sql = "DELETE FROM \"exchange_rates\";";
+        await _connection.ExecuteAsync(sql);
     }
 }

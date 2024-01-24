@@ -3,5 +3,5 @@
 public class CurrencyDataEntity
 {
     public DateTime Date { get; set; } = default;
-    public string RatesXml { get; set; } = string.Empty;
+    public string Rates { get; set; } = string.Empty;
 }

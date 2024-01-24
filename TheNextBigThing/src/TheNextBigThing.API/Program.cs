@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.Extensions.Configuration;
 using TheNextBigThing.API.Middlewares;
 using TheNextBigThing.Application;
 using TheNextBigThing.Infrastructure;
@@ -21,8 +20,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1",
         new Microsoft.OpenApi.Models.OpenApiInfo
         {
-            Title = builder.Configuration.GetValue<string>("SwaggerTitle")
-                ?? throw new ArgumentException("Configuration does not have a SwaggerTitle section"),
+            Title = builder.Configuration.GetValue<string>("SwaggerTitle") ?? "No Title!",
             Description = builder.Configuration.GetValue<string>("SwaggerDescription") ?? string.Empty
         }
      );
