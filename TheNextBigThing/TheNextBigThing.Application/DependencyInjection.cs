@@ -10,6 +10,6 @@ public static class DependencyInjection
     {
         services.AddTransient<LBCurrencyClient>();
         services.AddTransient<CurrencyRateService>();
-        // services.AddHostedService<PeriodicHostedService>();
+        services.AddHostedService<PeriodicHostedService>();
     }
 }

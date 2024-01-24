@@ -14,4 +14,9 @@ public class CurrencyRateRepository : ICurrencyRateRepository
     {
         throw new NotImplementedException();
     }
+
+    public Task CleanUp()
+    {
+        throw new NotImplementedException();
+    }
 }
