@@ -24,7 +24,7 @@ public class CurrencyRatesController : Controller
     /// <remarks>
     /// Important: <br />
     /// * This API works with the dates up to the end of the year 2014; <br />
-    /// * Results are sorted by change values from highest to lowest.
+    /// * Results are sorted by change amount from highest to lowest.
     /// </remarks>
     /// <response code="200">Changes successfully retrieved</response>
     /// <response code="400">Cannot process request</response>

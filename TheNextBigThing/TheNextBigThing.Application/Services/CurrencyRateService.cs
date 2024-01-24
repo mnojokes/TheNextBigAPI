@@ -46,7 +46,7 @@ public class CurrencyRateService
         return new RateChangesResponse()
         {
             Date = date,
-            Changes = CalculateChanges(curRates, prevRates)
+            Changes = CalculateChanges(curRates, prevRates).OrderByDescending(item => Math.Abs(item.Change)).ToList()
         };
     }
 
