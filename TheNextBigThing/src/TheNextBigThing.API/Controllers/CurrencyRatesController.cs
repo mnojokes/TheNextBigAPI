@@ -27,12 +27,14 @@ public class CurrencyRatesController : Controller
     /// * Results are sorted by change values from highest to lowest.
     /// </remarks>
     /// <response code="200">Changes successfully retrieved</response>
-    /// <response code="400">Unable to retrieve data</response>
+    /// <response code="400">Cannot process request</response>
+    /// <response code="404">Unable to retrieve data</response>
     /// <response code="500">Server error</response>
     [HttpGet("changes")]
     [Produces("application/xml")]
     [ProducesResponseType(typeof(RateChangesResponse), 200)]
     [ProducesResponseType(typeof(MessageResponse), 400)]
+    [ProducesResponseType(typeof(MessageResponse), 404)]
     [ProducesResponseType(typeof(MessageResponse), 500)]
     public async Task<IActionResult> GetRateChanges([FromQuery] DateTime date)
     {

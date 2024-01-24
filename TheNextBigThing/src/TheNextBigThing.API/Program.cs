@@ -1,11 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
 using TheNextBigThing.API.Middlewares;
 using TheNextBigThing.Application;
-using TheNextBigThing.Application.Clients;
-using TheNextBigThing.Application.Services;
-using TheNextBigThing.Domain.Interfaces;
 using TheNextBigThing.Infrastructure;
-using TheNextBigThing.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

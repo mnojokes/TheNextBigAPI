@@ -1,10 +1,7 @@
 ﻿using System.Net;
-using System.Text.Json;
-using System.Xml.Serialization;
+using TheNextBigThing.Application.Utilities;
 using TheNextBigThing.Domain.Exceptions;
 using TheNextBigThing.Domain.Responses;
-using TheNextBigThing.Domain.Utilities;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 #pragma warning disable 1591
 
@@ -33,8 +30,9 @@ public class ExceptionHandlingMiddleware
 
             response.StatusCode = error switch
             {
-                ArgumentNullException => (int)HttpStatusCode.NotFound,
+                ArgumentNullException => (int)HttpStatusCode.BadRequest,
                 CurrencyClientException e => e.Code,
+                CurrencyDataException => (int)HttpStatusCode.NotFound,
                 InvalidOperationException => (int)HttpStatusCode.NotFound,
                 _ => (int)HttpStatusCode.InternalServerError
             };

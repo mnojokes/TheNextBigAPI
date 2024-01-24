@@ -6,5 +6,5 @@ namespace TheNextBigThing.Domain.DTO;
 public class RateChange
 {
     [XmlElement("Name")] public string Name { get; set; } = string.Empty;
-    [XmlAttribute("Name")] public decimal Change { get; set; } = default;
+    [XmlElement("Change")] public decimal Change { get; set; } = default;
 }
