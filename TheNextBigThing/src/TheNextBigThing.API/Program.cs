@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.Extensions.Configuration;
 using TheNextBigThing.API.Middlewares;
 using TheNextBigThing.Application;
 using TheNextBigThing.Infrastructure;
@@ -32,7 +33,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddHttpClient();
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(builder.Configuration.GetValue<string>("DBConnection"));
 
 var app = builder.Build();
 
