@@ -22,7 +22,6 @@ public static class XmlUtility
     {
         XmlSerializer serializer = new XmlSerializer(typeof(T));
 
-        // Deserialize the XML data into an ExchangeRates object
         using (TextReader reader = new StringReader(obj))
         {
             return (T?)serializer.Deserialize(reader);
